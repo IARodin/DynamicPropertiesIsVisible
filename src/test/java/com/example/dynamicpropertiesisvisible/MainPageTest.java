@@ -25,7 +25,6 @@ public class MainPageTest {
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
     }
 
     @AfterEach
@@ -37,9 +36,7 @@ public class MainPageTest {
     public void isVisible() {
         driver.get("https://demoqa.com/dynamic-properties");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(6));
-        WebElement visibleAfter = driver.findElement(By.cssSelector("#visibleAfter"));
-        wait.until(ExpectedConditions.visibilityOf(visibleAfter));
-
-        assertTrue(visibleAfter.isDisplayed(), "Не отображается элемент");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#visibleAfter")));
+        assertTrue(driver.findElement(By.cssSelector("#visibleAfter")).isEnabled(), "Не отображается элемент");
     }
 }
